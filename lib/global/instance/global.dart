@@ -17,8 +17,6 @@ import 'package:xterm/xterm.dart';
 import 'dart:core' as core;
 import 'dart:core';
 
-// import 'behavior.dart';
-import 'behavior.dart';
 import 'page_manager.dart';
 
 extension PTYExt on Pty {
@@ -328,7 +326,6 @@ class Global {
     }
     _socketServer();
     await installAdbToEnvir();
-    await initApi('ADB KIT', Config.versionName);
   }
 
   Widget? rootWidget;

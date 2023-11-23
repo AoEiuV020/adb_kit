@@ -80,13 +80,6 @@ dependencies:
 
   device_info_plus: 8.1.0
 
-  # 下面两个是非开源库，个人编译需要移除
-  # 并手动解决编译报错
-  termux_api_plugin:
-    path: ../termux_api_plugin
-  adb_kit_extension:
-    path: ../adb_kit_extension
-    
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -108,11 +101,11 @@ dependency_overrides:
   visibility_detector: ^0.3.3
   ffi: 1.0.0
   flutter_svg: 1.1.5
-  fwfh_text_style: 2.22.8+1
+  fwfh_text_style: ^2.23.8
   better_player: 0.0.83
   android_intent_plus: 4.0.1
-  global_repository:
-    path: ../../nightmare-space/global_repository
+  signale:
+    git: https://github.com/nightmare-space/signale
   # flutter_pty:
   #   path: ../flutter_pty
   # app_launcher:
