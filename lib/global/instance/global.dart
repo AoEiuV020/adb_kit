@@ -1,11 +1,15 @@
 import 'dart:convert';
+import 'dart:core' as core;
+import 'dart:core';
 import 'dart:io';
 import 'dart:ui';
+
 import 'package:adb_kit/app/controller/controller.dart';
 import 'package:adb_kit/app/modules/home/bindings/home_binding.dart';
 import 'package:adb_kit/config/config.dart';
 import 'package:adb_kit/utils/utils.dart';
 import 'package:adbutil/adbutil.dart';
+import 'package:behavior/behavior.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pty/flutter_pty.dart';
@@ -13,11 +17,7 @@ import 'package:get/get.dart';
 import 'package:global_repository/global_repository.dart';
 import 'package:multicast/multicast.dart';
 import 'package:xterm/xterm.dart';
-import 'dart:core' as core;
-import 'dart:core';
 
-// import 'behavior.dart';
-import 'behavior.dart';
 import 'page_manager.dart';
 
 extension PTYExt on Pty {
