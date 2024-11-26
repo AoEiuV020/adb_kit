@@ -25,49 +25,6 @@ class ADBInstaller {
     if (kIsWeb) {
       return;
     }
-    if (GetPlatform.isAndroid) {
-      String? libPath = await AdbLibrary.getLibPath();
-      for (int i = 0; i < androidFiles.length; i++) {
-        // when android target sdk > 28
-        // cannot execute file in /data/data/com.xxx/files/usr/bin
-        // so we need create a link to /data/data/com.xxx/files/usr/bin
-        final sourcePath = '$libPath/${androidFiles[i]}';
-        String fileName = androidFiles[i].replaceAll(RegExp('^lib|.so'), '');
-        String filePath = '${RuntimeEnvir.binPath}/$fileName';
-        // custom path, termux-api will invoke
-        if (fileName == 'termux-callback') {
-          Directory(RuntimeEnvir.usrPath).createSync(recursive: true);
-          filePath = '${RuntimeEnvir.usrPath}/libexec/termux-callback';
-        }
-        File file = File(filePath);
-        FileSystemEntityType type = await FileSystemEntity.type(filePath);
-        Log.i('$fileName type -> $type');
-        if (type != FileSystemEntityType.notFound && type != FileSystemEntityType.link) {
-          // old version adb is plain file
-          Log.i('find plain file -> $fileName, delete it');
-          await file.delete();
-        }
-        Link link = Link(filePath);
-        if (link.existsSync()) {
-          link.deleteSync();
-        }
-        try {
-          Log.i('create link -> $fileName');
-          link.createSync(sourcePath);
-        } catch (e) {
-          Log.e('installAdbToEnvir error -> $e');
-        }
-      }
-      Directory(RuntimeEnvir.binPath).list().listen((event) {
-        String fileName = event.path.split('/').last;
-        Log.i('-> $fileName');
-        if (fileName.contains('.so')) {
-          // old version create some so file
-          Log.i('delete -> $fileName');
-          event.deleteSync();
-        }
-      });
-    }
     await AssetsManager.copyFiles(
       localPath: '${RuntimeEnvir.binPath}/',
       macOS: [],

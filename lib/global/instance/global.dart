@@ -78,19 +78,6 @@ class Global {
   Terminal terminal = Terminal(maxLines: 10000);
   core.Future<void> initTerminal() async {
     Map<String, String> envir = RuntimeEnvir.envir();
-    if (GetPlatform.isMobile) {}
-    if (GetPlatform.isAndroid) {
-      String? libPath = await AdbLibrary.getLibPath();
-      RuntimeEnvir.put("PATH", '$libPath:${RuntimeEnvir.path}');
-      // PC 设置HOME变量到应用内路径会引发异常
-      // 例如 neofetch命令
-      envir['HOME'] = RuntimeEnvir.binPath;
-      envir['LD_LIBRARY_PATH'] = '${RuntimeEnvir.binPath}:/system/lib64';
-      Directory? extenalStorage = await getExternalStorageDirectory();
-      // some time we need read adb log file
-      envir['TMPDIR'] = '${extenalStorage?.path}';
-      envir['RUST_LOG'] = 'trace';
-    }
     envir['TERM'] = 'xterm-256color';
     String shell = 'sh';
     if (GetPlatform.isWindows) {

@@ -62,10 +62,6 @@ class DevicesController extends GetxController {
   Future<void> init() async {
     await startAdb();
     AdbUtil.addListener(handleResult);
-    if (GetPlatform.isAndroid) {
-      String? libPath = await AdbLibrary.getLibPath();
-      AdbUtil.setLibraryPath(libPath);
-    }
     AdbUtil.startPoolingListDevices(
       duration: const Duration(seconds: 1),
     );
